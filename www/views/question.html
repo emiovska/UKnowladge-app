@@ -1,0 +1,52 @@
+<ion-view>
+
+    <ion-content>
+
+
+                <div ng-model="question" class="padding-left padding-right">
+
+                    <div class="item item-avatar">
+                        <img ng-src="{{question.technologyLogo}}">
+                        <h2>Marty McFly</h2>
+                        <p>November 05, 1955</p>
+                    </div>
+
+                    <div class="item item-body">
+                        <h2 class="questionText">
+                            {{question.question.trim()}}
+                        </h2>
+                        <p>
+                            <a href="#" class="subdued">1 Like</a>
+                            <a href="#" class="subdued">5 Comments</a>
+                        </p>
+                    </div>
+
+                    <div>
+                        <ul class="list">
+                            <li ng-repeat="answer in question.answers" class="item item-checkbox">
+                                <label class="checkbox">
+                                    <input type="radio" name="group1" value="{{answer.id}}}"/>
+                                </label>
+                                {{answer.text}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col col-33">
+                        <button ng-click="previousQuestions()" ng-disabled="currentQuestionIndex == 0"
+                                class="button button-small button-outline button-block button-stable">
+                            Previous
+                        </button>
+                    </div>
+                    <div class="col col-33 col-offset-33">
+                        <button ng-click="nextQuestion()" ng-disabled="currentQuestionIndex == 9"
+                                class="button button-small button-outline button-block button-stable">
+                            Next
+                        </button>
+                    </div>
+                </div>
+    </ion-content>
+
+</ion-view>

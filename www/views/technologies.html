@@ -1,0 +1,14 @@
+<ion-view title="Available technologies">
+    <ion-content>
+
+        <div class="list">
+
+            <a class="item item-avatar" href="#/question/{{technology.$id}}" ng-repeat="technology in technologies">
+                <img ng-src="{{technology.picture.trim()}}">
+                <h2>{{technology.label}}</h2>
+                <p>Challenge your knowledge</p>
+            </a>
+
+        </div>
+    </ion-content>
+</ion-view>

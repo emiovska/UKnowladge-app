@@ -1,0 +1,25 @@
+<ion-view title="Create user">
+    <ion-content>
+
+        <ul class="list">
+
+            <li class="item item-checkbox">
+                <label class="checkbox">
+                    <input type="checkbox">
+                </label>
+                First
+            </li>
+            <li class="item item-checkbox">
+                <label class="checkbox">
+                    <input type="checkbox" ng-checked="first()">
+                </label>
+                Second
+            </li>
+
+
+        </ul>
+        <button class="button button-assertive" ng-click="toggleStartStop()"> Speak</button>
+        <button class="button" ng-click="speakQuestion()"> Speak question</button>
+        <p>  {{infoMessage}} </p>
+    </ion-content>
+</ion-view>
