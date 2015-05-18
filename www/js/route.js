@@ -20,7 +20,12 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
             url: "/technologies",
             templateUrl: "views/technologies.html",
             controller: 'technologiesController'
-        });;
+        })
+        .state('showResult',{
+            url: "/showResult",
+            templateUrl: "views/showResult.html",
+            controller: 'showResultController'
+        });
 
     $urlRouterProvider.otherwise('/intro');
 });

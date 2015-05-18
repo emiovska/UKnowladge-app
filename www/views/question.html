@@ -8,7 +8,7 @@
                     <div class="item item-avatar">
                         <img ng-src="{{question.technologyLogo}}">
                         <h2>Marty McFly</h2>
-                        <p>November 05, 1955</p>
+                        <a href="#/showResult">Show results</a>
                     </div>
 
                     <div class="item item-body">
@@ -18,6 +18,8 @@
                         <p>
                             <a href="#" class="subdued">1 Like</a>
                             <a href="#" class="subdued">5 Comments</a>
+                            <button class="button button-small" ng-click="speakQuestion(question.question.trim())"> Speak</button>
+                            <button class="button button-small button-assertive" ng-click="voiceAnswer()">Answer</button>
                         </p>
                     </div>
 
@@ -25,7 +27,8 @@
                         <ul class="list">
                             <li ng-repeat="answer in question.answers" class="item item-checkbox">
                                 <label class="checkbox">
-                                    <input type="radio" name="group1" value="{{answer.id}}}"/>
+                                    <input type="radio" name="group1" value="{{answer.id}}"
+                                           ng-model="value" ng-change="changeCheckedAnswer(value)" ng-checked="checkAnswer(answer.id)"/>
                                 </label>
                                 {{answer.text}}
                             </li>
@@ -33,7 +36,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row padding-bottom">
                     <div class="col col-33">
                         <button ng-click="previousQuestions()" ng-disabled="currentQuestionIndex == 0"
                                 class="button button-small button-outline button-block button-stable">
