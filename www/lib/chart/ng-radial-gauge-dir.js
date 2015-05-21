@@ -78,6 +78,7 @@ angular.module("ngRadialGauge",[]).directive('ngRadialGauge', ['$window', '$time
              
              var svg = d3.select(ele[0])
                  .append('svg')
+                 .attr('fill','white')
                  .attr('width', width)
                  .attr('height', width * 0.75);
              var renderMajorGraduations = function (majorGraduationsAngles) {

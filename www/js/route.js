@@ -22,7 +22,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
             controller: 'technologiesController'
         })
         .state('showResult',{
-            url: "/showResult",
+            url: "/showResult/:correct",
             templateUrl: "views/showResult.html",
             controller: 'showResultController'
         });

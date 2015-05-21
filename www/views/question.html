@@ -1,6 +1,6 @@
 <ion-view>
 
-    <ion-content>
+    <ion-content on-swipe-left="nextQuestion()" on-swipe-right="previousQuestions()">
 
 
                 <div ng-model="question" class="padding-left padding-right">
@@ -8,7 +8,8 @@
                     <div class="item item-avatar">
                         <img ng-src="{{question.technologyLogo}}">
                         <h2>Marty McFly</h2>
-                        <a href="#/showResult">Show results</a>
+                        <button class="button button-small" ng-click="calculateCorrectAnswers()">Show results</button>
+                        <a href="#/showResult/{{correct}}" class="button button-small button-aseertivre" ng-click="showGraphic()">Show graphic</a>
                     </div>
 
                     <div class="item item-body">
@@ -36,20 +37,6 @@
                     </div>
                 </div>
 
-                <div class="row padding-bottom">
-                    <div class="col col-33">
-                        <button ng-click="previousQuestions()" ng-disabled="currentQuestionIndex == 0"
-                                class="button button-small button-outline button-block button-stable">
-                            Previous
-                        </button>
-                    </div>
-                    <div class="col col-33 col-offset-33">
-                        <button ng-click="nextQuestion()" ng-disabled="currentQuestionIndex == 9"
-                                class="button button-small button-outline button-block button-stable">
-                            Next
-                        </button>
-                    </div>
-                </div>
     </ion-content>
 
 </ion-view>

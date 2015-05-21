@@ -1,6 +1,12 @@
 myApp.controller("technologiesController", ['$scope','FirebaseData', function($scope, FirebaseData){
-
+        $scope.showSpinner=true;
         var allTech = FirebaseData.technologies();
-        $scope.technologies=allTech;
+
+        allTech.$loaded().then(function(){
+            $scope.showSpinner = false;
+            $scope.technologies=allTech;
+        });
+
+
 
 }]);

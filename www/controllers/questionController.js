@@ -4,24 +4,32 @@ myApp.controller('questionController', ['$scope','$stateParams','FirebaseData','
     var questions = [];
     var questionsCheckedAnswers = {};
     if(technologyId) {
-        var technologyProps = FirebaseData.technologyQuestions(technologyId);
-        technologyProps.$loaded().then(function(props) {
-                questions= technologyProps.questions;
+        var technologyQuestions = FirebaseData.technologyQuestions(technologyId);
+        technologyQuestions.$loaded().then(function(props) {
+                questions= technologyQuestions;
                 populateQuestionsCheckedAnswers(questions);
                 $scope.currentQuestionIndex = 0;
                 $scope.question = questions[$scope.currentQuestionIndex];
-                $scope.question.technologyLogo = technologyProps.picture;
         });
+
+        var logo = FirebaseData.technologyLogo(technologyId);
+        logo.$loaded().then(function(logoUrl){
+            $scope.question.technologyLogo = logoUrl.$value;
+        })
     }
 
     $scope.previousQuestions = function() {
-        $scope.currentQuestionIndex--;
-        $scope.question = questions[$scope.currentQuestionIndex];
+        if($scope.currentQuestionIndex >0) {
+            $scope.currentQuestionIndex--;
+            $scope.question = questions[$scope.currentQuestionIndex];
+        }
     };
 
     $scope.nextQuestion = function() {
-        $scope.currentQuestionIndex++;
-        $scope.question = questions[ $scope.currentQuestionIndex];
+        if($scope.currentQuestionIndex <9) {
+            $scope.currentQuestionIndex++;
+            $scope.question = questions[$scope.currentQuestionIndex];
+        }
     };
 
     $scope.speakQuestion = function(questionText) {
@@ -66,7 +74,26 @@ myApp.controller('questionController', ['$scope','$stateParams','FirebaseData','
 
     $scope.changeCheckedAnswer = function(answerId) {
        changeCheckedAnswers(answerId);
-    }
+    };
+
+    $scope.calculateCorrectAnswers = function() {
+        var correct=0;
+        var test= "";
+        for(var i=0;i<10;i++) {
+            var question = questions[i];
+            var correctAnswer = question.correct;
+
+            test += i+" "+ correctAnswer + "\n";
+            if(questionsCheckedAnswers[i][correctAnswer]) {
+                correct++;
+            }
+        }
+
+        alert(test);
+        $scope.correct=correct;
+
+    };
+
 
     var changeCheckedAnswers = function(answerId) {
         var currentQuestionId=$scope.currentQuestionIndex;
@@ -87,8 +114,7 @@ myApp.controller('questionController', ['$scope','$stateParams','FirebaseData','
     var checkedRecognizedAnswer = function(answerId) {
         changeCheckedAnswers(answerId);
         $scope.$apply();
-    }
-
+    };
 
 
     var togglequestionCheckedAnswers = function(questionId) {
@@ -97,40 +123,37 @@ myApp.controller('questionController', ['$scope','$stateParams','FirebaseData','
             checkedAnswers[key] = false;
         });
         questionsCheckedAnswers[questionId]= checkedAnswers;
-    }
+    };
 
 
-    var options = { frequency: 80 };
-
-   // document.addEventListener("deviceready", function () {
-
-        var watch = $cordovaDeviceMotion.watchAcceleration(options);
-        watch.then(
-            null,
-            function(error) {
-                // An error occurred
-            },
-            function(result) {
-                var Z = result.z;
-
-                if(Z>=18 ) {
-                    if($scope.currentQuestionIndex<=8)
-                         $scope.nextQuestion();
-                }
-
-
-            });
-
-       // watch.clearWatch();
-        // OR
-        //$cordovaDeviceMotion.clearWatch(watch)
-        //    .then(function(result) {
-        //        // success
-        //    }, function (error) {
-        //        // error
-        //    });
-
-   // }, false);
+   // var options = { frequency: 80 };
+   // var watch = $cordovaDeviceMotion.watchAcceleration(options);
+   //     watch.then(
+   //         null,
+   //         function(error) {
+   //             // An error occurred
+   //         },
+   //         function(result) {
+   //             var Z = result.z;
+   //
+   //             if(Z>=18 ) {
+   //                 if($scope.currentQuestionIndex<=8)
+   //                      $scope.nextQuestion();
+   //             }
+   //
+   //
+   //         });
+   //
+   //    // watch.clearWatch();
+   //     // OR
+   //     //$cordovaDeviceMotion.clearWatch(watch)
+   //     //    .then(function(result) {
+   //     //        // success
+   //     //    }, function (error) {
+   //     //        // error
+   //     //    });
+   //
+   //// }, false);
 
 
 
