@@ -1,11 +1,6 @@
 myApp.config(function ($stateProvider, $urlRouterProvider) {
 
     $stateProvider
-        .state('speech', {
-            url: "/speech",
-            templateUrl: "views/speech.html",
-            controller: 'mainController'
-        })
         .state('intro',{
             url: "/intro",
             templateUrl: "views/intro.html",

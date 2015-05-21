@@ -7,24 +7,14 @@
 .spinner {
     text-align: center !important;
 }
+.scroll {
+    height: 100% !important;
 
-.animate-enter,
-.animate-leave
-{
-    -webkit-transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -moz-transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -ms-transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    -o-transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
-    transition: 300ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
 }
 
-.animate-enter {
-    left: 100%;
-}
-.animate-enter.animate-enter-active {
-    left: 0;
-}
-
-.animate-leave {
-    left: 0;
+.button-bottom {
+    position: absolute !important;
+    margin: auto !important;
+    bottom: 0 !important;
+    width: 100% !important;
 }

@@ -126,8 +126,8 @@ myApp.controller('questionController', ['$scope','$stateParams','FirebaseData','
     };
 
 
-   // var options = { frequency: 80 };
-   // var watch = $cordovaDeviceMotion.watchAcceleration(options);
+   //var options = { frequency: 80 };
+   //var watch = $cordovaDeviceMotion.watchAcceleration(options);
    //     watch.then(
    //         null,
    //         function(error) {

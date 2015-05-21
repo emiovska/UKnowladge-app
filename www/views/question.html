@@ -3,31 +3,43 @@
     <ion-content on-swipe-left="nextQuestion()" on-swipe-right="previousQuestions()">
 
 
-                <div ng-model="question" class="padding-left padding-right">
+                <div ng-model="question" class="padding-left padding-right padding-top">
 
-                    <div class="item item-avatar">
-                        <img ng-src="{{question.technologyLogo}}">
-                        <h2>Marty McFly</h2>
-                        <button class="button button-small" ng-click="calculateCorrectAnswers()">Show results</button>
-                        <a href="#/showResult/{{correct}}" class="button button-small button-aseertivre" ng-click="showGraphic()">Show graphic</a>
-                    </div>
+                    <!--<div class="item item-avatar">-->
+                        <!--<img ng-src="{{question.technologyLogo}}">-->
+                        <!--<h2>Marty McFly</h2>-->
+                        <!--<button class="button button-small" ng-click="calculateCorrectAnswers()">Show results</button>-->
+                        <!--<a href="#/showResult/{{correct}}" class="button button-small button-aseertivre" ng-click="showGraphic()">Show graphic</a>-->
+                    <!--</div>-->
 
-                    <div class="item item-body">
-                        <h2 class="questionText">
+                    <!--<a class="item item-thumbnail-left" href="#">-->
+                        <!--<img src="cover.jpg">-->
+                        <!--<h2 class="questionText" style="color: #ffffff">-->
+                            <!--{{question.question.trim()}}-->
+                        <!--</h2>-->
+                    <!--</a>-->
+
+                    <div class="item item-body item-divider row" style="background:#387ef5;">
+                        <img ng-src="https://www.colourbox.com/preview/2363581-illustration-of-3d-character-with-question-mark-on-an-isolated-white-background.jpg" style="height: 70px; width: 50px" class="col col-20">
+                       <h2 class="questionText col" style="color: #ffffff; margin: 0">
                             {{question.question.trim()}}
                         </h2>
-                        <p>
-                            <a href="#" class="subdued">1 Like</a>
-                            <a href="#" class="subdued">5 Comments</a>
-                            <button class="button button-small" ng-click="speakQuestion(question.question.trim())"> Speak</button>
-                            <button class="button button-small button-assertive" ng-click="voiceAnswer()">Answer</button>
-                        </p>
+                    </div>
+
+                    <div class="item row" style="padding: 0">
+                        <!--<button class="button button-small" ng-click="speakQuestion(question.question.trim())"> Speak</button>-->
+                        <!--<button class="button button-small button-assertive" ng-click="voiceAnswer()">Answer</button>-->
+                        <!--<i class="icon assertive ion-radio-waves" ng-click="speakQuestion(question.question.trim())"></i>-->
+                        <a ng-click="previousQuestions()" class="button button-small button-block button-outline icon-left ion-chevron-left button-positive  col col-33">Previous</a>
+                        <!--<a class="button button-small button-icon button-stable icon ion-settings col col-25"></a>-->
+                        <a href="#/showResult/5" class="button button-small button-block button-outline ion-document-text button-positive col col-33">Results</a>
+                        <a ng-click="nextQuestion()" class="button button-small button-block button-outline icon-right ion-chevron-right button-positive col col-33">Next</a>
                     </div>
 
                     <div>
                         <ul class="list">
                             <li ng-repeat="answer in question.answers" class="item item-checkbox">
-                                <label class="checkbox">
+                                <label class="checkbox checkbox-assertive" ng-focus="false">
                                     <input type="radio" name="group1" value="{{answer.id}}"
                                            ng-model="value" ng-change="changeCheckedAnswer(value)" ng-checked="checkAnswer(answer.id)"/>
                                 </label>
@@ -35,8 +47,20 @@
                             </li>
                         </ul>
                     </div>
+
+
                 </div>
 
+        <div style="position: absolute; bottom: 0; width: 100%">
+            <a href="#/technologies" class="button button-block button-positive button-bottom"
+                    style="z-index: -100">
+            </a>
+            <!--https://lh4.ggpht.com/vdyb5O6Fti8VPLobusosTucjFg5mk9u7fSMdzA4LKFb7NcsOtyWYpKmX1WMHK-EP0Z8=w300
+                https://d13yacurqjgara.cloudfront.net/users/139313/screenshots/636088/sirioriginalstate_teaser.png
+            -->
+            <img ng-click="voiceAnswer()" src="https://d13yacurqjgara.cloudfront.net/users/139313/screenshots/636088/sirioriginalstate_teaser.png"
+                 style="height: 70px; width: 70px; z-index: 100; display: block; margin-left: auto; margin-right: auto;">
+        </div>
     </ion-content>
 
 </ion-view>
