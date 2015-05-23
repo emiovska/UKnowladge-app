@@ -9,4 +9,7 @@ myApp.controller("technologiesController", ['$scope','FirebaseData', function($s
 
 
 
+
+
+
 }]);

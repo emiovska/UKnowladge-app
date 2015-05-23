@@ -20,6 +20,11 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
             url: "/showResult/:correct",
             templateUrl: "views/showResult.html",
             controller: 'showResultController'
+        })
+        .state('summary',{
+            url: "/summary",
+            templateUrl: "views/summary.html",
+            controller: 'summaryController'
         });
 
     $urlRouterProvider.otherwise('/intro');

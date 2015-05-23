@@ -1,13 +1,29 @@
-<ion-view>
-    <ion-content>
+<ion-view title="Results">
+    <ion-content class="stable-bg">
+        <div class="card">
+            <a href="#/summary" class="item item-icon-right">
+                <h2>Summary</h2>
+                <i class="icon ion-ios-arrow-right"></i>
+            </a>
+        </div>
         <div class="row">
             <div id="chart" style="margin-left: auto; margin-right:auto;" ng-radial-gauge ranges="ranges" value="value" value-unit="unit"
                  precision="precision" lower-limit="lowerLimit" upper-limit="upperLimit"></div>
         </div>
 
-        <button class="button button-balanced" ng-click="shareOnFacebook()"> Share on facebook</button>
-        <button class="button" ng-click="toImage()"> to Image</button>
+        <div class="card">
+            <div class="item item-divider item-light">
+                What is your result?
+            </div>
+            <div class="item item-text-wrap">
+                Congratulations for your achievement<br/>
+                Your result is {{result}}
+            </div>
+        </div>
+
+        <div class="row">
+            <img class="img-fb-share" ng-click="toImage()" ng-src="http://www.watermarklearning.com/images/icons/facebook-icon-circle.png">
+        </div>
         <canvas id="canvas" width="1000px" height="600px" style="display:none;" fillRect="white"></canvas>
-        <img id="binaryImage"/>
     </ion-content>
 </ion-view>

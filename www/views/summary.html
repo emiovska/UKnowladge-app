@@ -1,0 +1,28 @@
+<ion-view title="Summary">
+    <ion-content class="stable-bg">
+        <div class="card">
+            <div class="item item-icon-right">
+                <h2>Question overview</h2>
+                <i class="icon ion-chevron-down"></i>
+            </div>
+        </div>
+
+        <div class="card"  style="bottom: 0; height: 65%">
+            <ion-scroll style="height: 100%">
+                <div class="item item-body row padding" ng-repeat="question in questions" ng-click="showCorrectAnswer($index)">
+                   <div class="col col-80">{{question.question}}</div>
+                   <div class="col col-center" >
+
+                         <i class="icon " ng-class="correctQuestion($index) ? 'ion-checkmark-circled balanced' : 'ion-close-circled assertive' "
+                             style="font-size: 40px; float: right"></i>
+
+                   </div>
+                </div>
+            <ion-scroll>
+        </div>
+
+        <div class="card">
+            <a href="#/technologies"  class="button button-block button-positive" style="margin:0"> Taka a new challange</a>
+        </div>
+    </ion-content>
+</ion-view>

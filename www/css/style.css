@@ -18,3 +18,18 @@
     bottom: 0 !important;
     width: 100% !important;
 }
+
+.nav-custom-btn {
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 23px !important;
+}
+
+.img-fb-share {
+    height: 60px;
+    margin-left: auto;
+    margin-top: -56px;
+    z-index: 100;
+    margin-right: 12px;
+
+}

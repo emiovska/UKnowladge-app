@@ -1,4 +1,5 @@
-myApp.controller('questionController', ['$scope','$stateParams','FirebaseData','$cordovaDeviceMotion', function($scope, $stateParams,FirebaseData,$cordovaDeviceMotion) {
+myApp.controller('questionController', ['$scope','$rootScope','$stateParams','$ionicHistory','$location','FirebaseData','SharedData','$cordovaDeviceMotion',
+    function($scope,$rootScope, $stateParams,$ionicHistory,$location,FirebaseData,SharedData,$cordovaDeviceMotion) {
 
     var technologyId = $stateParams.technologyId;
     var questions = [];
@@ -7,6 +8,7 @@ myApp.controller('questionController', ['$scope','$stateParams','FirebaseData','
         var technologyQuestions = FirebaseData.technologyQuestions(technologyId);
         technologyQuestions.$loaded().then(function(props) {
                 questions= technologyQuestions;
+                $rootScope.questions = questions;
                 populateQuestionsCheckedAnswers(questions);
                 $scope.currentQuestionIndex = 0;
                 $scope.question = questions[$scope.currentQuestionIndex];
@@ -76,7 +78,21 @@ myApp.controller('questionController', ['$scope','$stateParams','FirebaseData','
        changeCheckedAnswers(answerId);
     };
 
-    $scope.calculateCorrectAnswers = function() {
+    $scope.prepareResults = function() {
+
+        SharedData.storeQuestionsCheckedAnswers(questionsCheckedAnswers);
+
+        calculateCorrectAnswers(function(correct){
+
+            $ionicHistory.nextViewOptions({
+                disableBack: true
+            });
+            $location.path('/showResult/' + correct);
+        });
+
+    };
+
+    var calculateCorrectAnswers = function(redirect) {
         var correct=0;
         var test= "";
         for(var i=0;i<10;i++) {
@@ -88,12 +104,8 @@ myApp.controller('questionController', ['$scope','$stateParams','FirebaseData','
                 correct++;
             }
         }
-
-        alert(test);
-        $scope.correct=correct;
-
+       redirect(correct);
     };
-
 
     var changeCheckedAnswers = function(answerId) {
         var currentQuestionId=$scope.currentQuestionIndex;

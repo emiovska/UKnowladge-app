@@ -1,5 +1,8 @@
-myApp.controller('showResultController', ['$scope','$interval','$stateParams','$cordovaSocialSharing',
-        function($scope, $interval,$stateParams,$cordovaSocialSharing) {
+myApp.controller('showResultController', ['$scope','$interval','$stateParams','SharedData','$cordovaSocialSharing',
+        function($scope,$interval,$stateParams,SharedData,$cordovaSocialSharing) {
+
+
+
     $scope.value = 0;
     $scope.upperLimit = 10;
     $scope.lowerLimit = 0;
@@ -8,13 +11,18 @@ myApp.controller('showResultController', ['$scope','$interval','$stateParams','$
     $scope.ranges = [
         {
             min: 0,
-            max: 4,
+            max: 2,
             color: '#DEDEDE'
+        },
+        {
+            min: 2,
+            max: 4,
+            color: '#76FF03'
         },
         {
             min: 4,
             max: 6,
-            color: '#8DCA2F'
+            color: '#FFEB3B'
         },
         {
             min: 6,
@@ -27,13 +35,15 @@ myApp.controller('showResultController', ['$scope','$interval','$stateParams','$
             color: '#C50200'
         }
     ];
+
     var c=$stateParams.correct*20;
     var interval = $interval(function(){
         $scope.value+=0.05;
         c--;
 
-        if(c==0) {
+        if(c<=0) {
             $interval.cancel(interval);
+            $scope.result = $stateParams.correct*10 + "%";
             console.log("stop...");
         }
 
@@ -56,8 +66,9 @@ myApp.controller('showResultController', ['$scope','$interval','$stateParams','$
       $scope.toImage = function() {
 
           var imageData= makeImageData();
-          $('#binaryImage').attr('src', imageData);
+         // $('#binaryImage').attr('src', imageData);
 
+          //console.log("tukaa");
           $cordovaSocialSharing
               .shareViaFacebook("hello from ngCordova", imageData,"")
               .then(function(result) {
@@ -68,6 +79,9 @@ myApp.controller('showResultController', ['$scope','$interval','$stateParams','$
                   alert(img);
               });
       };
+
+
+
 
        var makeImageData = function() {
            var svg = document.getElementById('chart').innerHTML;
