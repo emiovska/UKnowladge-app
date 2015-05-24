@@ -8,6 +8,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
         })
         .state('question',{
             url: "/question/:technologyId",
+            cache: false,
             templateUrl: "views/question.html",
             controller: 'questionController'
         })

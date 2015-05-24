@@ -1,42 +1,43 @@
-myApp.controller('questionController', ['$scope','$rootScope','$stateParams','$ionicHistory','$location','FirebaseData','SharedData','$cordovaDeviceMotion',
-    function($scope,$rootScope, $stateParams,$ionicHistory,$location,FirebaseData,SharedData,$cordovaDeviceMotion) {
+myApp.controller('questionController', ['$scope','$rootScope','$stateParams','$ionicHistory','$location','$timeout','FirebaseData','SharedData','$cordovaDeviceMotion','$ionicSlideBoxDelegate',
+    function($scope,$rootScope, $stateParams,$ionicHistory,$location,$timeout,FirebaseData,SharedData,$cordovaDeviceMotion,$ionicSlideBoxDelegate) {
 
     var technologyId = $stateParams.technologyId;
     var questions = [];
     var questionsCheckedAnswers = {};
+
+    $rootScope.questions={};
+    $scope.delay=true;
+
+    $scope.currentQuestionIndex = 0;
+
     if(technologyId) {
         var technologyQuestions = FirebaseData.technologyQuestions(technologyId);
         technologyQuestions.$loaded().then(function(props) {
                 questions= technologyQuestions;
                 $rootScope.questions = questions;
                 populateQuestionsCheckedAnswers(questions);
-                $scope.currentQuestionIndex = 0;
-                $scope.question = questions[$scope.currentQuestionIndex];
+
+
+            $timeout(function(){
+                $scope.delay=false;
+                $ionicSlideBoxDelegate.update();
+            },2000);
+
         });
 
-        var logo = FirebaseData.technologyLogo(technologyId);
-        logo.$loaded().then(function(logoUrl){
-            $scope.question.technologyLogo = logoUrl.$value;
-        })
     }
-
-    $scope.previousQuestions = function() {
-        if($scope.currentQuestionIndex >0) {
-            $scope.currentQuestionIndex--;
-            $scope.question = questions[$scope.currentQuestionIndex];
-        }
-    };
-
-    $scope.nextQuestion = function() {
-        if($scope.currentQuestionIndex <9) {
-            $scope.currentQuestionIndex++;
-            $scope.question = questions[$scope.currentQuestionIndex];
-        }
-    };
 
     $scope.speakQuestion = function(questionText) {
         texttospeech.speak(questionText);
     };
+
+    $scope.nextQuestion = function() {
+        $ionicSlideBoxDelegate.next();
+    };
+
+     $scope.previousQuestions = function() {
+         $ionicSlideBoxDelegate.previous();
+     }
 
     $scope.voiceAnswer = function() {
         var maxMatches = 5;
@@ -55,6 +56,7 @@ myApp.controller('questionController', ['$scope','$rootScope','$stateParams','$i
                     if(answer === recognizedAnswer) {
                         checkedRecognizedAnswer(answers[j].id);
                         founded=true;
+                        alert(answer);
                         break;
                     }
                 }
@@ -68,14 +70,15 @@ myApp.controller('questionController', ['$scope','$rootScope','$stateParams','$i
         }, maxMatches, promptString, language);
     };
 
-    $scope.checkAnswer = function(answerId){
-        var currentQuestionId=$scope.currentQuestionIndex;
+    $scope.checkAnswer = function(index,answerId){
+        var currentQuestionId=index;
         var answers = questionsCheckedAnswers[currentQuestionId];
         return answers[answerId];
     }
 
-    $scope.changeCheckedAnswer = function(answerId) {
-       changeCheckedAnswers(answerId);
+    $scope.changeCheckedAnswer = function(index,answerId) {
+
+       changeCheckedAnswers(index,answerId);
     };
 
     $scope.prepareResults = function() {
@@ -107,10 +110,11 @@ myApp.controller('questionController', ['$scope','$rootScope','$stateParams','$i
        redirect(correct);
     };
 
-    var changeCheckedAnswers = function(answerId) {
-        var currentQuestionId=$scope.currentQuestionIndex;
+    var changeCheckedAnswers = function(index,answerId) {
+        var currentQuestionId=index
         togglequestionCheckedAnswers(currentQuestionId);
         questionsCheckedAnswers[currentQuestionId][answerId]= true;
+
     }
     var populateQuestionsCheckedAnswers = function(questions) {
         questions.forEach(function(question, index){
@@ -167,6 +171,11 @@ myApp.controller('questionController', ['$scope','$rootScope','$stateParams','$i
    //
    //// }, false);
 
+
+        $scope.slideHasChanged = function(index) {
+            $scope.currentQuestionIndex = index;
+
+        }
 
 
 }]);

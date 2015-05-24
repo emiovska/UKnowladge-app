@@ -1,10 +1,15 @@
 <ion-view>
 
-    <ion-content on-swipe-left="nextQuestion()" on-swipe-right="previousQuestions()" class="stable-bg">
+    <!--<ion-content class="stable-bg">-->
 
+        <!--<ion-content on-swipe-left="nextQuestion()" on-swipe-right="previousQuestions()" class="stable-bg">-->
 
-                <div ng-model="question" class="padding-left padding-right padding-top">
+    <ion-spinner ng-show="delay" icon="ripple" class="spinner spinner-positive col col-33 col-offset-33" style="text-align: center; height: 50%"></ion-spinner>
 
+        <ion-slide-box ng-hide="delay" on-slide-changed="slideHasChanged($index)" show-pager="true">
+                <!--<div ng-model="question" class="padding-left padding-right padding-top">-->
+            <ion-slide ng-repeat="question in questions" ng-cloak>
+                <div>
                     <div class="item item-body item-divider row" style="background:#387ef5;">
                        <img ng-src="https://www.colourbox.com/preview/2363581-illustration-of-3d-character-with-question-mark-on-an-isolated-white-background.jpg" style="height: 70px; width: 50px" class="col col-20">
                        <h2 class="questionText col" style="color: #ffffff; margin: 0">
@@ -20,21 +25,21 @@
                         <a ng-click="nextQuestion()" class="nav-custom-btn button  button-clear ion-chevron-right button-light col col-25"></a>
                     </div>
 
-
                     <div>
                         <ul class="list">
                             <li ng-repeat="answer in question.answers" class="item item-body item-checkbox">
                                 <label class="checkbox" ng-focus="false">
-                                    <input type="radio" name="group1" value="{{answer.id}}"
-                                           ng-model="value" ng-change="changeCheckedAnswer(value)" ng-checked="checkAnswer(answer.id)"/>
+                                    <input type="radio" name="group{{$parent.$index}}}" value="{{answer.id}}"
+                                           ng-model="value" ng-change="changeCheckedAnswer($parent.$index,value)" ng-checked="checkAnswer($parent.$index,answer.id)"/>
                                 </label>
                                 {{answer.text}}
                             </li>
                         </ul>
                     </div>
-
-
                 </div>
+            </ion-slide>
+                <!--</div>-->
+        </ion-slide-box>
 
         <div style="position: absolute; bottom: 0; width: 100%">
             <a href="#/technologies" class="button button-block button-positive button-bottom"
@@ -46,6 +51,6 @@
             <img ng-click="voiceAnswer()" src="https://d13yacurqjgara.cloudfront.net/users/139313/screenshots/636088/sirioriginalstate_teaser.png"
                  style="height: 70px; width: 70px; z-index: 100; display: block; margin-left: auto; margin-right: auto;">
         </div>
-    </ion-content>
+    <!--</ion-content>-->
 
 </ion-view>
