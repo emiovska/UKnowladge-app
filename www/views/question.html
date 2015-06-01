@@ -1,4 +1,4 @@
-<ion-view>
+<ion-view class="stable-bg">
 
     <!--<ion-content class="stable-bg">-->
 
@@ -9,7 +9,7 @@
         <ion-slide-box ng-hide="delay" on-slide-changed="slideHasChanged($index)" show-pager="true">
                 <!--<div ng-model="question" class="padding-left padding-right padding-top">-->
             <ion-slide ng-repeat="question in questions" ng-cloak>
-                <div>
+                <ion-scroll style="height: 85%;">
                     <div class="item item-body item-divider row" style="background:#387ef5;">
                        <img ng-src="https://www.colourbox.com/preview/2363581-illustration-of-3d-character-with-question-mark-on-an-isolated-white-background.jpg" style="height: 70px; width: 50px" class="col col-20">
                        <h2 class="questionText col" style="color: #ffffff; margin: 0">
@@ -36,7 +36,7 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </ion-scroll>
             </ion-slide>
                 <!--</div>-->
         </ion-slide-box>

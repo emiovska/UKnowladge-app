@@ -19,11 +19,13 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
         })
         .state('showResult',{
             url: "/showResult/:correct",
+            cache: false,
             templateUrl: "views/showResult.html",
             controller: 'showResultController'
         })
         .state('summary',{
             url: "/summary",
+            cache: false,
             templateUrl: "views/summary.html",
             controller: 'summaryController'
         });

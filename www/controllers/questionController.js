@@ -56,7 +56,7 @@ myApp.controller('questionController', ['$scope','$rootScope','$stateParams','$i
                     if(answer === recognizedAnswer) {
                         checkedRecognizedAnswer(answers[j].id);
                         founded=true;
-                        alert(answer);
+                       // alert(answer);
                         break;
                     }
                 }
@@ -84,7 +84,7 @@ myApp.controller('questionController', ['$scope','$rootScope','$stateParams','$i
     $scope.prepareResults = function() {
 
         SharedData.storeQuestionsCheckedAnswers(questionsCheckedAnswers);
-
+        console.log(questionsCheckedAnswers);
         calculateCorrectAnswers(function(correct){
 
             $ionicHistory.nextViewOptions({
@@ -128,7 +128,7 @@ myApp.controller('questionController', ['$scope','$rootScope','$stateParams','$i
     };
 
     var checkedRecognizedAnswer = function(answerId) {
-        changeCheckedAnswers(answerId);
+        changeCheckedAnswers($scope.currentQuestionIndex,answerId);
         $scope.$apply();
     };
 
@@ -174,6 +174,7 @@ myApp.controller('questionController', ['$scope','$rootScope','$stateParams','$i
 
         $scope.slideHasChanged = function(index) {
             $scope.currentQuestionIndex = index;
+            console.log(index);
 
         }
 
