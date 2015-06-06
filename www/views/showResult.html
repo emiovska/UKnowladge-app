@@ -1,7 +1,12 @@
 <ion-view title="Results">
+
+    <ion-nav-buttons side="primary">
+        <a class="button button-icon icon ion-log-out"  ng-controller="authenticationController" ng-click="logOut()"></a>
+    </ion-nav-buttons>
+
     <ion-content class="stable-bg">
         <div class="card">
-            <a href="#/summary" class="item item-icon-right">
+            <a ng-href="#/summary" class="item item-icon-right">
                 <h2>Summary</h2>
                 <i class="icon ion-ios-arrow-right"></i>
             </a>
@@ -17,7 +22,8 @@
             </div>
             <div class="item item-text-wrap">
                 Congratulations for your achievement<br/>
-                Your result is {{result}}
+                Your result is {{result}} <br/>
+                Spend time: {{time}} seconds
             </div>
         </div>
 

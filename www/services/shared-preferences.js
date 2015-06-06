@@ -3,6 +3,7 @@ myApp.factory('SharedData', function () {
    // var questions= [];
     var questionsCheckedAnswers = {};
     var correctAnswers=0;
+    var numberOfCorrectAnswers=0;
 
     return {
         //storeQuestions: function(ques) {
@@ -22,6 +23,12 @@ myApp.factory('SharedData', function () {
         },
         getCorrectAnswers: function(){
             return correctAnswers;
+        },
+        storeNumOfCorrectAns: function(number){
+            numberOfCorrectAnswers=number;
+        },
+        getNumOfCorrectAns: function(){
+            return numberOfCorrectAnswers;
         }
     }
 });

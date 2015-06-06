@@ -1,0 +1,13 @@
+<ion-view title="Companies suggestions">
+    <ion-content class="stable-bg">
+        <div class="card list">
+
+            <button class="item item-avatar" ng-repeat="company in companies" ng-click="visitSite($index)">
+                <img ng-src="{{company.pictureUrl}}">
+                <h2>{{company.name}}</h2>
+                <p>{{company.website}}</p>
+            </button>
+
+        </div>
+    </ion-content>
+</ion-view>

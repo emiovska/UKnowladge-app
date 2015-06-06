@@ -1,15 +1,19 @@
 <ion-view class="stable-bg">
 
-    <!--<ion-content class="stable-bg">-->
+    <ion-nav-title>
+        {{stopwatch.data.value}} s
+    </ion-nav-title>
 
-        <!--<ion-content on-swipe-left="nextQuestion()" on-swipe-right="previousQuestions()" class="stable-bg">-->
+    <ion-nav-buttons side="primary">
+        <a class="button button-icon icon ion-log-out"  ng-controller="authenticationController" ng-click="logOut()"></a>
+    </ion-nav-buttons>
 
     <ion-spinner ng-show="delay" icon="ripple" class="spinner spinner-positive col col-33 col-offset-33" style="text-align: center; height: 50%"></ion-spinner>
 
         <ion-slide-box ng-hide="delay" on-slide-changed="slideHasChanged($index)" show-pager="true">
                 <!--<div ng-model="question" class="padding-left padding-right padding-top">-->
             <ion-slide ng-repeat="question in questions" ng-cloak>
-                <ion-scroll style="height: 85%;">
+                <ion-scroll style="height: 85%;" id="question{{$index}}">
                     <div class="item item-body item-divider row" style="background:#387ef5;">
                        <img ng-src="https://www.colourbox.com/preview/2363581-illustration-of-3d-character-with-question-mark-on-an-isolated-white-background.jpg" style="height: 70px; width: 50px" class="col col-20">
                        <h2 class="questionText col" style="color: #ffffff; margin: 0">
@@ -19,10 +23,11 @@
                     </div>
 
                     <div class="item row" style="padding: 0; background:#387ef5; height: 42px">
-                        <a ng-click="previousQuestions()" class="nav-custom-btn button button-block button-clear ion-chevron-left button-light  col col-25"></a>
-                        <a ng-click="prepareResults()" class="nav-custom-btn button button-clear ion-speedometer button-light col col-25"></a>
-                        <a ng-click="speakQuestion(question.question.trim())" class="nav-custom-btn button  button-clear ion-radio-waves button-light col col-25"></a>
-                        <a ng-click="nextQuestion()" class="nav-custom-btn button  button-clear ion-chevron-right button-light col col-25"></a>
+                        <a ng-click="previousQuestions()" class="nav-custom-btn button button-block button-clear ion-chevron-left button-light  col col-20"></a>
+                        <a ng-click="prepareResults()" class="nav-custom-btn button button-clear ion-speedometer button-light col col-20"></a>
+                        <a ng-click="speakQuestion(question.question.trim())" class="nav-custom-btn button  button-clear ion-radio-waves button-light col col-20"></a>
+                        <a ng-click="reportQuestion($index)" class="nav-custom-btn button  button-clear ion-bug button-assertive col col-20"></a>
+                        <a ng-click="nextQuestion()" class="nav-custom-btn button  button-clear ion-chevron-right button-light col col-20"></a>
                     </div>
 
                     <div>
@@ -42,7 +47,7 @@
         </ion-slide-box>
 
         <div style="position: absolute; bottom: 0; width: 100%">
-            <a href="#/technologies" class="button button-block button-positive button-bottom"
+            <a href="#" class="button button-block button-positive button-bottom"
                     style="z-index: -100">
             </a>
             <!--https://lh4.ggpht.com/vdyb5O6Fti8VPLobusosTucjFg5mk9u7fSMdzA4LKFb7NcsOtyWYpKmX1WMHK-EP0Z8=w300

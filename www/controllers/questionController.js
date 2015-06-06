@@ -1,5 +1,11 @@
-myApp.controller('questionController', ['$scope','$rootScope','$stateParams','$ionicHistory','$location','$timeout','FirebaseData','SharedData','$cordovaDeviceMotion','$ionicSlideBoxDelegate',
-    function($scope,$rootScope, $stateParams,$ionicHistory,$location,$timeout,FirebaseData,SharedData,$cordovaDeviceMotion,$ionicSlideBoxDelegate) {
+myApp.controller('questionController', ['$scope','$rootScope','$stateParams','$ionicHistory','$location','$timeout',
+    'FirebaseData',
+    'SharedData',
+    'Stopwatch',
+    '$cordovaDeviceMotion',
+    '$ionicSlideBoxDelegate',
+    '$cordovaEmailComposer',
+    function($scope,$rootScope, $stateParams,$ionicHistory,$location,$timeout,FirebaseData,SharedData,Stopwatch,$cordovaDeviceMotion,$ionicSlideBoxDelegate,$cordovaEmailComposer) {
 
     var technologyId = $stateParams.technologyId;
     var questions = [];
@@ -10,6 +16,10 @@ myApp.controller('questionController', ['$scope','$rootScope','$stateParams','$i
 
     $scope.currentQuestionIndex = 0;
 
+    //configure stopwatch
+    $scope.stopwatch = Stopwatch;
+    $scope.stopwatch.reset();
+
     if(technologyId) {
         var technologyQuestions = FirebaseData.technologyQuestions(technologyId);
         technologyQuestions.$loaded().then(function(props) {
@@ -19,6 +29,7 @@ myApp.controller('questionController', ['$scope','$rootScope','$stateParams','$i
 
 
             $timeout(function(){
+                $scope.stopwatch.start();
                 $scope.delay=false;
                 $ionicSlideBoxDelegate.update();
             },2000);
@@ -83,6 +94,9 @@ myApp.controller('questionController', ['$scope','$rootScope','$stateParams','$i
 
     $scope.prepareResults = function() {
 
+    var time = $scope.stopwatch.data.value;
+    $scope.stopwatch.reset();
+
         SharedData.storeQuestionsCheckedAnswers(questionsCheckedAnswers);
         console.log(questionsCheckedAnswers);
         calculateCorrectAnswers(function(correct){
@@ -90,7 +104,7 @@ myApp.controller('questionController', ['$scope','$rootScope','$stateParams','$i
             $ionicHistory.nextViewOptions({
                 disableBack: true
             });
-            $location.path('/showResult/' + correct);
+            $location.path('/showResult/' + correct +'/' + time);
         });
 
     };
@@ -176,7 +190,46 @@ myApp.controller('questionController', ['$scope','$rootScope','$stateParams','$i
             $scope.currentQuestionIndex = index;
             console.log(index);
 
+        };
+
+        //**Email configurations**//
+
+
+        $scope.reportQuestion = function(questionId) {
+
+            var reportedQuestion = $scope.questions[questionId];
+            var reportedQuestionCorrectAnswer = reportedQuestion.answers[reportedQuestion.correct].text;
+
+            var emailBody="<h2>Dear admin,</h2></br>"
+                           +"Please review this question:<br></br><br></br>"
+                           +"question id: " + reportedQuestion.$id +"<br></br>"
+                           +"question text: "  + reportedQuestion.question + "<br></br>"
+                           +"correct answer: " + reportedQuestionCorrectAnswer + "<br></br><br></br>"
+                           +"Report from, <br></br> <h4>Challenge your knowledge</h4>";
+
+
+            console.log(emailBody);
+
+            $cordovaEmailComposer.isAvailable().then(function() {
+
+                 var question =document.getElementById("question"+questionId).firstChild.innerHTML;
+                  var email = {
+                            to: 'miovska.e@gmail.com',
+                            subject: 'Challenge your language question resport',
+                            body: emailBody,
+                            isHtml: true
+                          };
+
+               $cordovaEmailComposer.open(email).then(null, function () {
+                  // user cancelled email
+                });
+
+             }, function () {
+                alert("not available");
+             });
         }
+
+
 
 
 }]);

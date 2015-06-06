@@ -6,6 +6,21 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
             templateUrl: "views/intro.html",
             controller: 'introController'
         })
+        .state('login',{
+            url: "/login",
+            templateUrl: "views/login.html",
+            controller: 'loginController'
+        })
+        .state('registration',{
+            url: "/registration",
+            templateUrl: "views/registration.html",
+            controller: 'registrationController'
+        })
+        .state('authentication',{
+            url: "/authentication",
+            templateUrl: "views/authentication.html",
+            controller: 'authenticationController'
+        })
         .state('question',{
             url: "/question/:technologyId",
             cache: false,
@@ -18,7 +33,7 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
             controller: 'technologiesController'
         })
         .state('showResult',{
-            url: "/showResult/:correct",
+            url: "/showResult/:correct/:time",
             cache: false,
             templateUrl: "views/showResult.html",
             controller: 'showResultController'
@@ -28,7 +43,15 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
             cache: false,
             templateUrl: "views/summary.html",
             controller: 'summaryController'
+        })
+        .state('companies',{
+             url: "/companies",
+             cache: false,
+             templateUrl: "views/companies.html",
+             controller: 'companiesController'
         });
+
+
 
     $urlRouterProvider.otherwise('/intro');
 });

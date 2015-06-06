@@ -2,7 +2,7 @@ myApp.controller('showResultController', ['$scope','$interval','$stateParams','S
         function($scope,$interval,$stateParams,SharedData,$cordovaSocialSharing) {
 
 
-
+    $scope.result=0;
     $scope.value = 0;
     $scope.upperLimit = 10;
     $scope.lowerLimit = 0;
@@ -44,7 +44,7 @@ myApp.controller('showResultController', ['$scope','$interval','$stateParams','S
         if(c<=0) {
             $interval.cancel(interval);
             $scope.result = $stateParams.correct*10 + "%";
-            console.log("stop...");
+            SharedData.storeNumOfCorrectAns($stateParams.correct);
         }
 
     },50);
@@ -104,5 +104,9 @@ myApp.controller('showResultController', ['$scope','$interval','$stateParams','S
 
            return imageData;
        }
+
+
+        $scope.time=$stateParams.time;
+
 
 }]);

@@ -1,6 +1,13 @@
-myApp.controller('summaryController', ['$scope','$rootScope','$ionicPopup','SharedData', function($scope,$rootScope,$ionicPopup,SharedData) {
+myApp.controller('summaryController', ['$scope','$rootScope','$ionicPopup','SharedData','$stateParams',
+ function($scope,$rootScope,$ionicPopup,SharedData,$stateParams) {
 
     var questionsCheckedAnswers = SharedData.getQuestionsCheckedAnswers();
+    var numberOfCorrect = SharedData.getNumOfCorrectAns();
+
+    if(numberOfCorrect > 2)
+        $scope.suggestions=true;
+    else
+        $scope.suggestions=false;
 
     $scope.correctQuestion = function(index) {
 
@@ -23,6 +30,8 @@ myApp.controller('summaryController', ['$scope','$rootScope','$ionicPopup','Shar
             console.log('Correct answer');
         });
     };
+
+
 
 
 }]);

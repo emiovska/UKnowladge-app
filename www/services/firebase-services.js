@@ -3,10 +3,11 @@
  */
 myApp.factory('FirebaseData', function ($firebase) {
     var firebaseUrl = "https://uknowladge.firebaseio.com/";
-    var firebaseRef = new Firebase(firebaseUrl);
+
 
     return {
         technologies: function() {
+           var firebaseRef = new Firebase(firebaseUrl).limit(7);
            var allTechbologies = $firebase(firebaseRef).$asArray();
            return allTechbologies;
         },
